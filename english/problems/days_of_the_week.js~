@@ -1,0 +1,87 @@
+
+
+//データセット
+const superscript = '\u00B2';
+const quiz = [
+    {
+	question:'Sunday',
+	correct:'日曜日'
+    },
+    {
+	question:'Monday',
+	correct:'月曜日'
+    },
+    {
+	question:'Tuesday',
+	correct:'火曜日'
+    },
+    {
+	question:'Wednesday',
+	correct:'水曜日'
+    },
+    {
+	question:'Thursday',
+	correct:'木曜日'
+    },
+    {
+	question:'Friday',
+	correct:'金曜日'
+    },
+    {
+	question:'Saturday',
+	correct:'土曜日'
+    }
+];
+
+const quizLength = quiz.length;
+let quizIndex = 0;
+let score = 0;
+
+//HTMLのオブジェクトから取得する変数には明示的に$をつける
+const $input = document.getElementsByTagName('input');
+
+//whileを使った関数による問題文と選択肢定義
+const setupQuiz = (index) =>{
+    document.getElementById('js-question').textContent = quiz[index].question;
+    }
+setupQuiz(quizIndex);
+
+
+//「解答」するボタンをクリックしたら正誤判定
+
+const clickHandler = (e) => {
+    if(quiz[quizIndex].correct === e.target.textContent){
+	window.alert('正解');
+	score++;
+    }else{
+        window.alert('不正解');
+    }
+
+    quizIndex++;
+
+    if(quizIndex < quizLength){
+	setupQuiz();      
+    }
+
+
+};
+
+const judgeAnswer = () => {
+    const textbox = document.getElementById("text_box");
+    const $inputValue = textbox.value;
+    if($inputValue === quiz[quizIndex].correct){
+	window.alert('正解');
+        score++;
+    }else{
+	window.alert('不正解');
+    }
+    quizIndex++;
+    document.answer.text_box.value = "";
+    if(quizIndex < quizLength){
+	setupQuiz(quizIndex);
+    }else{
+	window.alert('終了！ あなたの正解数は' + score + '/' + quizLength + 'です！');
+        window.location = "../english_home.html"
+    }
+};
+
